@@ -117,7 +117,7 @@
           <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
         </nav>
         <div class="flex items-center gap-3">
-          <a href="#check" class="hidden sm:inline-flex rounded-xl px-4 py-2 btn-primary font-semibold">Check if you qualify</a>
+          <a href="./Steps.html" class="hidden sm:inline-flex rounded-xl px-4 py-2 btn-primary font-semibold">Check if you qualify</a>
           <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl glass" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
             <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
@@ -152,7 +152,7 @@
         <!-- Copy -->
         <div class="stagger-animation order-1 lg:order-2">
           <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10">
-            <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-400"></span>
+            <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-white">⭐</span>
             5-star rated guidance
           </div>
           <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">Expert advice.<br class="hidden sm:block"/>Real solutions.</h1>
@@ -188,7 +188,7 @@
           <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-snug">Let’s deal with debt together. Get practical help.</h2>
           <p class="text-base sm:text-lg/7 text-white/85 mb-4">Thousands in the UK are struggling with debt. The right information matters—and it helps.</p>
           <p class="text-base sm:text-lg/7 text-white/85 mb-6">All debt problems can be solved. Don’t ignore it—take a simple step now and get back in control.</p>
-          <a href="#check" class="inline-block rounded-full px-6 py-3 btn-primary font-semibold text-center">Get debt help now →</a>
+          <a href="./Steps.html" class="inline-block rounded-full px-6 py-3 bg-orange-500  font-semibold text-center">Get debt help now →</a>
         </div>
       </div>
     </div>
@@ -239,7 +239,7 @@
                 <li class="flex gap-2"><span>•</span> Chat or call an expert when ready</li>
                 <li class="flex gap-2"><span>•</span> Reduce stress today</li>
               </ul>
-              <button class="mt-5 px-4 py-2 rounded-xl btn-primary">Start Fast Track</button>
+              <button onclick="redirectToSteps()" class="mt-5 px-4 py-2 rounded-xl btn-primary">Start Fast Track</button>
             </div>
 
             <div class="rounded-2xl p-6 border border-white/10 bg-white/5 card-hover">
@@ -282,8 +282,8 @@
               <div>
                 <label class="text-sm" for="arrears">Are any debts in arrears?</label>
                 <select id="arrears" class="mt-1 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-accent-400">
-                  <option value="no">No</option>
-                  <option value="yes">Yes</option>
+                  <option value="no" class="text-black">No</option>
+                  <option value="yes" class="text-black">Yes</option>
                 </select>
               </div>
               <button class="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl btn-primary font-semibold px-6 py-3" type="submit">
@@ -331,7 +331,7 @@
       </div>
 
       <div class="text-center mt-10">
-        <a href="#check" class="rounded-2xl px-6 py-3 btn-primary font-semibold inline-flex items-center gap-2">Get debt help now
+        <a href="./Steps.html" class="rounded-2xl px-6 py-3 btn-primary font-semibold inline-flex items-center gap-2">Get debt help now
           <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -357,7 +357,7 @@
             <li>• Stops most interest and contact from creditors</li>
             <li>• Protects essential assets</li>
           </ul>
-          <button class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">See if IVA fits
+          <button onclick="redirectToSteps()" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">See if IVA fits
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
@@ -372,7 +372,7 @@
             <li>• One payment distributed to creditors</li>
             <li>• Can pause or adjust when needed</li>
           </ul>
-          <button class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">Explore DMP
+          <button  onclick="redirectToSteps()"  class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">Explore DMP
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
@@ -387,7 +387,7 @@
             <li>• Typically 4 years</li>
             <li>• Stops most creditor action</li>
           </ul>
-          <button class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">Check eligibility
+          <button onclick="redirectToSteps()"  class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">Check eligibility
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
@@ -438,7 +438,7 @@
       </div>
 
       <div class="mt-8 text-center">
-        <a href="#check" class="inline-flex items-center gap-2 rounded-2xl btn-primary font-semibold px-6 py-3">
+        <a href="./Steps.html" class="inline-flex items-center gap-2 rounded-2xl btn-primary font-semibold px-6 py-3">
           Still unsure? Chat with us
           <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
         </a>
@@ -446,11 +446,208 @@
     </div>
   </section>
 
+
+  <!-- Reviews -->
+
+  <!-- REVIEW -->
+<!-- REVIEWS CAROUSEL -->
+<section id="review" class="bg-ink-900">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl font-extrabold tracking-tight">What clients say</h2>
+      <p class="mt-2 text-white/70">Real people. Real progress.</p>
+    </div>
+
+    <!-- Carousel viewport -->
+    <div class="relative mt-10 max-w-3xl mx-auto">
+      <div class="overflow-hidden rounded-3xl">
+        <!-- Track -->
+        <div id="reviewTrack" class="flex transition-transform duration-500 ease-out">
+          <!-- Slide 1 -->
+          <article class="shrink-0 w-full p-1" itemscope itemtype="https://schema.org/Review">
+            <div class="rounded-3xl border border-white/10 bg-white/5 shadow-soft ring-1 ring-white/10 p-6 sm:p-8 card-hover">
+              <!-- Stars -->
+              <div class="flex items-center gap-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Rated 5 out of 5">
+                <meta itemprop="ratingValue" content="5"/>
+                <meta itemprop="bestRating" content="5"/>
+                <span class="sr-only">5 out of 5 stars</span>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+              </div>
+
+              <blockquote class="mt-4 sm:mt-6">
+                <p class="text-lg sm:text-xl leading-relaxed text-white/90" itemprop="reviewBody">
+                  “Here’s the thing—I was drowning in letters and late fees and kept putting it off. Your Fast Track took five minutes,
+                  then a real person walked me through a budget that fits my life. Within a week the calls stopped, my payments were realistic,
+                  and I finally slept. No judgement, just clear steps.”
+                </p>
+              </blockquote>
+
+              <div class="mt-6 sm:mt-8 flex items-center gap-4">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-tealish-400/20 ring-1 ring-white/10">
+                  <span class="text-tealish-2 00 font-semibold">AR</span>
+                </div>
+                <div class="text-sm">
+                  <div class="font-semibold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Amelia R.</span>
+                  </div>
+                  <div class="text-white/60">Manchester, UK</div>
+                </div>
+                <span class="ml-auto inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+                  Verified review
+                </span>
+              </div>
+
+              <meta itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization" />
+              <meta itemprop="name" content="UK Debt Expert" />
+            </div>
+          </article>
+
+          <!-- Slide 2 -->
+          <article class="shrink-0 w-full p-1" itemscope itemtype="https://schema.org/Review">
+            <div class="rounded-3xl border border-white/10 bg-white/5 shadow-soft ring-1 ring-white/10 p-6 sm:p-8 card-hover">
+              <div class="flex items-center gap-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Rated 5 out of 5">
+                <meta itemprop="ratingValue" content="5"/><meta itemprop="bestRating" content="5"/><span class="sr-only">5 out of 5 stars</span>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+              </div>
+              <blockquote class="mt-4 sm:mt-6">
+                <p class="text-lg sm:text-xl leading-relaxed text-white/90" itemprop="reviewBody">
+                  “I avoided opening my bank app for months. The team helped me list everything, prioritise rent and food,
+                  and negotiate reduced payments. No scare tactics—just a plan that moved me forward.”
+                </p>
+              </blockquote>
+              <div class="mt-6 sm:mt-8 flex items-center gap-4">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-tealish-400/20 ring-1 ring-white/10">
+                  <span class="text-tealish-200 font-semibold">DK</span>
+                </div>
+                <div class="text-sm">
+                  <div class="font-semibold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Daniel K.</span>
+                  </div>
+                  <div class="text-white/60">Leeds, UK</div>
+                </div>
+                <span class="ml-auto inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  Verified review
+                </span>
+              </div>
+              <meta itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization" />
+              <meta itemprop="name" content="UK Debt Expert" />
+            </div>
+          </article>
+
+          <!-- Slide 3 -->
+          <article class="shrink-0 w-full p-1" itemscope itemtype="https://schema.org/Review">
+            <div class="rounded-3xl border border-white/10 bg-white/5 shadow-soft ring-1 ring-white/10 p-6 sm:p-8 card-hover">
+              <div class="flex items-center gap-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Rated 5 out of 5">
+                <meta itemprop="ratingValue" content="5"/><meta itemprop="bestRating" content="5"/><span class="sr-only">5 out of 5 stars</span>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+              </div>
+              <blockquote class="mt-4 sm:mt-6">
+                <p class="text-lg sm:text-xl leading-relaxed text-white/90" itemprop="reviewBody">
+                  “I’m self-employed so my income jumps around. They set up a flexible plan and explained what to do when work is quiet.
+                  I’m paying what I can afford and I’ve stopped panicking every time the phone rings.”
+                </p>
+              </blockquote>
+              <div class="mt-6 sm:mt-8 flex items-center gap-4">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-tealish-400/20 ring-1 ring-white/10">
+                  <span class="text-tealish-200 font-semibold">PS</span>
+                </div>
+                <div class="text-sm">
+                  <div class="font-semibold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Priya S.</span>
+                  </div>
+                  <div class="text-white/60">Glasgow, UK</div>
+                </div>
+                <span class="ml-auto inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  Verified review
+                </span>
+              </div>
+              <meta itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization" />
+              <meta itemprop="name" content="UK Debt Expert" />
+            </div>
+          </article>
+
+          <!-- Slide 4 -->
+          <article class="shrink-0 w-full p-1" itemscope itemtype="https://schema.org/Review">
+            <div class="rounded-3xl border border-white/10 bg-white/5 shadow-soft ring-1 ring-white/10 p-6 sm:p-8 card-hover">
+              <div class="flex items-center gap-2" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Rated 5 out of 5">
+                <meta itemprop="ratingValue" content="5"/><meta itemprop="bestRating" content="5"/><span class="sr-only">5 out of 5 stars</span>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                <svg class="h-5 w-5 text-accent-400" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.968 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.801-2.036a1 1 0 00-1.175 0l-2.8 2.036c-.786.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+              </div>
+              <blockquote class="mt-4 sm:mt-6">
+                <p class="text-lg sm:text-xl leading-relaxed text-white/90" itemprop="reviewBody">
+                  “Clear advice, zero pressure. They explained IVA vs DMP in plain English and helped me choose.
+                  I’m six months in and the stress is way down.”
+                </p>
+              </blockquote>
+              <div class="mt-6 sm:mt-8 flex items-center gap-4">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-tealish-400/20 ring-1 ring-white/10">
+                  <span class="text-tealish-200 font-semibold">MT</span>
+                </div>
+                <div class="text-sm">
+                  <div class="font-semibold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Martin T.</span>
+                  </div>
+                  <div class="text-white/60">Bristol, UK</div>
+                </div>
+                <span class="ml-auto inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  Verified review
+                </span>
+              </div>
+              <meta itemprop="itemReviewed" itemscope itemtype="https://schema.org/Organization" />
+              <meta itemprop="name" content="UK Debt Expert" />
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Dots -->
+      <div class="mt-4 flex items-center justify-center gap-2">
+        <button class="review-dot h-2.5 w-2.5 rounded-full bg-white/30 aria-selected:bg-accent-400" aria-label="Go to review 1" aria-selected="true"></button>
+        <button class="review-dot h-2.5 w-2.5 rounded-full bg-white/30 aria-selected:bg-accent-400" aria-label="Go to review 2"></button>
+        <button class="review-dot h-2.5 w-2.5 rounded-full bg-white/30 aria-selected:bg-accent-400" aria-label="Go to review 3"></button>
+        <button class="review-dot h-2.5 w-2.5 rounded-full bg-white/30 aria-selected:bg-accent-400" aria-label="Go to review 4"></button>
+      </div>
+    </div>
+
+    <!-- Sub-CTA -->
+    <div class="text-center mt-8">
+      <a href="./Steps.html" class="inline-flex items-center gap-2 rounded-2xl px-6 py-3 btn-primary font-semibold">
+        Start your plan
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+  
+
   <!-- CTA / CHECK -->
-  <section id="check" class="bg-gradient-to-b from-white to-ink-50 text-ink-900">
+  <!-- <section id="check" class="bg-gradient-to-b from-white to-ink-50 text-ink-900">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
       <div class="bg-ink-800 text-white rounded-3xl p-8 md:p-10 border border-white/10 shadow-soft grid md:grid-cols-2 gap-8 items-center">
-        <!-- Left -->
+        Left
         <div class="stagger-animation">
           <h3 class="text-2xl font-bold">Get Your Free Consultation</h3>
           <p class="mt-2 text-white/80">Fill in the form to get started.</p>
@@ -468,7 +665,7 @@
           </ul>
         </div>
 
-        <!-- Right Form (kept simple; colors unified) -->
+        Right Form (kept simple; colors unified)
         <div class="fade-in">
           <form id="consultForm" class="grid sm:grid-cols-2 gap-4">
             <div class="sm:col-span-2">
@@ -503,7 +700,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- FOOTER -->
   <footer class="bg-ink-900 border-t border-white/10">
@@ -561,6 +758,85 @@
 
       document.querySelectorAll('.stagger-animation > *').forEach(el => observer.observe(el));
     });
+
+
+// Steps Page 
+
+  function redirectToSteps() {
+    window.location.href = 'Steps.html';
+  }
+
+
+
+    // Review
+
+    
+// <!-- Carousel JS (drop near your other scripts) -->
+
+  (function () {
+    const track = document.getElementById('reviewTrack');
+    const slides = Array.from(track.children);
+    const dots = Array.from(document.querySelectorAll('#review .review-dot'));
+    const viewport = track.parentElement; // the overflow-hidden wrapper
+
+    let index = 0;
+    let timer = null;
+    const INTERVAL = 5000;
+
+    // Ensure each slide is full width of the viewport
+    function sizeSlides() {
+      const w = viewport.clientWidth;
+      slides.forEach(s => { s.style.width = w + 'px'; });
+      // Immediately snap to the current slide after resize
+      track.style.transform = `translateX(-${index * w}px)`;
+    }
+
+    function updateDots() {
+      dots.forEach((d, i) => d.setAttribute('aria-selected', i === index ? 'true' : 'false'));
+    }
+
+    function goTo(i) {
+      const w = viewport.clientWidth;
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * w}px)`;
+      updateDots();
+    }
+
+    function start() {
+      stop();
+      timer = setInterval(() => goTo(index + 1), INTERVAL);
+    }
+
+    function stop() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    // Init
+    sizeSlides();
+    updateDots();
+    start();
+
+    // Dots click
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => { goTo(i); start(); });
+    });
+
+    // Pause on hover/focus for accessibility
+    const section = document.getElementById('review');
+    section.addEventListener('mouseenter', stop);
+    section.addEventListener('mouseleave', start);
+    section.addEventListener('focusin', stop);
+    section.addEventListener('focusout', start);
+
+    // Resize handling
+    window.addEventListener('resize', () => {
+      // throttle a bit
+      clearTimeout(window.__reviewResize);
+      window.__reviewResize = setTimeout(sizeSlides, 150);
+    });
+  })();
+
   </script>
 </body>
 </html>

@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debt Advice • UK Debt Expert (Concept)</title>
+
+  <!-- Tailwind (keeps your original palette + utilities) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: {
+              50:'#f3f7fb',100:'#e7eff6',200:'#c4d9ea',300:'#9fc1dc',
+              400:'#5e9bc7',500:'#2b6da3',600:'#1e527f',700:'#163a59',
+              800:'#102c44',900:'#0b2032'
+            },
+            accent: {
+              50:'#fff6ed',100:'#ffe6cc',200:'#ffd0a3',300:'#ffb26d',
+              400:'#ff922e',500:'#ff7a00',600:'#e56f00',700:'#bf5b00',
+              800:'#974900',900:'#6f3500'
+            },
+            tealish: {
+              50:'#e6f8f6',100:'#c8efea',200:'#98e1d8',300:'#63cfc4',
+              400:'#35b7ad',500:'#179e94',600:'#0e7e78',700:'#106460',
+              800:'#0f504d',900:'#0a3534'
+            }
+          },
+          boxShadow: { soft: '0 10px 30px rgba(0,0,0,.25)' },
+          borderRadius: { xl2: '1rem' },
+          fontFamily: {
+            sans: ["Inter","ui-sans-serif","system-ui","-apple-system","Segoe UI","Roboto","Helvetica Neue","Noto Sans","sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Site visuals you already had ---------- */
+    .blob{ filter:blur(40px); opacity:.45; animation:float 20s infinite ease-in-out; }
+    .blob:nth-child(1){ animation-delay:0s; }
+    .blob:nth-child(2){ animation-delay:7s; }
+    .blob:nth-child(3){ animation-delay:14s; }
+    @keyframes float{
+      0%,100%{ transform:translate(0,0) scale(1);}
+      33%{ transform:translate(30px,-20px) scale(1.05);}
+      66%{ transform:translate(-20px,20px) scale(0.95);}
+    }
+
+    .glass{ background:rgba(255,255,255,.08); backdrop-filter:blur(10px) saturate(120%); transition:all .3s ease; }
+    .card-hover{ transition:transform .28s ease, box-shadow .28s ease, background .28s ease; }
+    .card-hover:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.22); }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--a500,#ff7a00) 0%, var(--a400,#ff922e) 100%);
+      color:#fff; border:0;
+      box-shadow:0 8px 24px rgba(255,122,0,.35);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 14px 38px rgba(255,122,0,.45); filter:saturate(105%); }
+
+    .btn-secondary{
+      background:transparent; color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+      transition:all .2s ease;
+    }
+    .btn-secondary:hover{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.4); }
+
+    .fade-in{ opacity:0; animation:fadeIn .9s ease forwards; }
+    @keyframes fadeIn{ to{ opacity:1; } }
+
+    .stagger-animation > *{ opacity:0; animation:fadeInUp .7s ease forwards; }
+    .stagger-animation > *:nth-child(1){ animation-delay:.08s; }
+    .stagger-animation > *:nth-child(2){ animation-delay:.16s; }
+    .stagger-animation > *:nth-child(3){ animation-delay:.24s; }
+    .stagger-animation > *:nth-child(4){ animation-delay:.32s; }
+    .stagger-animation > *:nth-child(5){ animation-delay:.40s; }
+    @keyframes fadeInUp{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+
+    @media (max-width: 767px){
+      #mobileNav{ position:absolute; top:100%; left:0; right:0; background:rgba(11,32,50,.96); backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,.1); }
+    }
+
+    .input-error{ border-color:#fecaca !important; box-shadow:0 0 0 3px rgba(239,68,68,.15) !important; }
+
+    /* ---------- Quiz card styles (matched to your palette) ---------- */
+    :root{
+      /* map to your site colors */
+      --brand:#0e7e78;      /* tealish-600 */
+      --brand-600:#106460;  /* tealish-700 (hover) */
+      --accent:#ff922e;     /* accent-400 (for gradients & highlights) */
+      --ink:#0b2032;        /* ink-900 (text on light) */
+      --muted:#6B7280;      /* neutral secondary */
+      --bg:#FFFFFF;         /* light surfaces for form */
+      --panel:#F7F8F9;      /* soft card bg */
+      --ring:#D1D5DB;       /* borders */
+      --error:#DC2626;
+      --radius:16px;
+      --radius-sm:12px;
+      --shadow:0 8px 24px rgba(0,0,0,.12);
+    }
+
+    .ukde-wrap{ max-width:960px; margin:48px auto; padding:0 20px; }
+    @media (max-width:640px){ .ukde-wrap{ margin:28px auto; } }
+
+    .card{ background:var(--panel); border:1px solid var(--ring); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+
+    .card-head{ padding:20px 24px; border-bottom:1px solid var(--ring); display:flex; align-items:center; justify-content:space-between; gap:12px; background:#fff; }
+    .title{ font-size:20px; font-weight:800; color:var(--ink); margin:0; letter-spacing:.2px; }
+    .step{ font-size:14px; color:var(--muted); }
+
+    .progress{ height:8px; background:#E5E7EB; }
+    .progress > span{ display:block; height:100%; width:0%; background:linear-gradient(90deg, var(--brand) 0%, var(--accent) 100%); transition:width .35s ease; }
+
+    .card-body{ padding:24px; background:var(--panel); }
+    .q{ font-size:22px; font-weight:800; color:var(--ink); margin:0 0 12px; }
+    .help{ color:var(--muted); font-size:14px; margin:0 0 18px; }
+
+    .grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+
+    .chip{
+      appearance:none; border:1px solid var(--ring); background:#fff; color:var(--ink);
+      border-radius:999px; padding:14px 16px; font-weight:700; text-align:center; cursor:pointer;
+      transition:transform .05s ease, border-color .2s, box-shadow .2s, background .2s, color .2s;
+      outline:none;
+    }
+    .chip:hover{ border-color:#B6BCC6; background:#FAFAFA; }
+    .chip:active{ transform:translateY(1px); }
+    .chip[aria-pressed="true"], .chip.active{
+      border-color:transparent; color:#fff; background:var(--brand);
+      box-shadow:0 0 0 3px rgba(14,126,120,.14), 0 8px 16px rgba(14,126,120,.18);
+    }
+    .chip:focus-visible{ box-shadow:0 0 0 3px rgba(255,146,46,.45); } /* accent glow */
+
+    .card-foot{ padding:16px 24px; display:flex; gap:12px; border-top:1px solid var(--ring); background:#fff; flex-wrap:wrap; }
+    .btn{
+      appearance:none; border:1px solid var(--ring); background:#fff; color:var(--ink);
+      border-radius:999px; padding:12px 18px; font-weight:800; cursor:pointer;
+      transition:background .2s, border-color .2s, transform .05s ease, color .2s;
+    }
+    .btn:active{ transform:translateY(1px); }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; }
+
+    .btn-primary{ background:var(--brand); color:#fff; border-color:var(--brand); }
+    .btn-primary:hover{ background:var(--brand-600); border-color:var(--brand-600); }
+
+    .btn-link{ border-color:transparent; background:transparent; color:var(--muted); }
+    .btn-link:hover{ color:var(--ink); background:#F3F4F6; }
+
+    .form-grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; }
+    @media (max-width:640px){ .form-grid{ grid-template-columns:1fr; } }
+
+    .field{ display:flex; flex-direction:column; gap:8px; }
+    .label{ font-size:14px; font-weight:800; color:var(--ink); }
+    .input{
+      width:100%; border:1px solid var(--ring); border-radius:12px; background:#fff; padding:12px 14px; font-size:16px;
+      outline:none; transition:border-color .2s, box-shadow .2s;
+    }
+    .input:focus{ border-color:var(--brand); box-shadow:0 0 0 3px rgba(255,146,46,.25); } /* accent halo */
+    .hint{ font-size:12px; color:var(--muted); margin-top:2px; }
+    .error-text{ font-size:12px; color:#DC2626; display:none; }
+    .field.error .input{ border-color:#DC2626; box-shadow:0 0 0 3px rgba(220,38,38,.12); }
+    .field.error .error-text{ display:block; }
+
+    .good-news{
+      background:rgba(53,183,173,.12); color:var(--brand); border:1px solid rgba(53,183,173,.45);
+      padding:12px 14px; border-radius:var(--radius-sm); font-weight:800; margin-bottom:14px;
+    }
+
+    .success{ display:none; padding:40px 24px; text-align:center; background:var(--panel); }
+    .success h3{ margin:0 0 10px; font-size:22px; font-weight:800; color:var(--ink); }
+    .success p{ margin:0; color:var(--muted); }
+
+    .ticks{ display:flex; flex-direction:column; gap:10px; margin-top:18px; font-size:14px; color:var(--ink); }
+    .tick{ display:flex; align-items:center; gap:10px; }
+    .tick svg{ width:18px; height:18px; color:var(--brand); }
+
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    .shake{ animation:shake .28s linear; }
+    @keyframes shake{
+      0%,100%{ transform:translateX(0); }
+      25%{ transform:translateX(-3px); }
+      75%{ transform:translateX(3px); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .progress > span, .chip, .btn, .shake{ animation:none !important; transition:none !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-ink-900 text-white antialiased scroll-smooth overflow-x-hidden font-sans">
+  <!-- Floating background shapes -->
+  <div aria-hidden="true" class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-accent-400 blob"></div>
+    <div class="absolute top-40 -right-20 w-64 h-64 rounded-full bg-tealish-400 blob"></div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[38rem] h-[38rem] rounded-full bg-ink-700 blob"></div>
+  </div>
+
+  <!-- NAVBAR (unchanged) -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-ink-900/90 border-b border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center gap-3">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tealish-400/15">
+            <svg viewBox="0 0 24 24" class="h-5 w-5 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18m-9-9h18"/></svg>
+          </span>
+          <span class="font-semibold tracking-tight">UK Debt Expert</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm text-white/80">
+          <a href="#fast" class="hover:text-white transition-colors">Fast Track</a>
+          <a href="#steps" class="hover:text-white transition-colors">How it works</a>
+          <a href="#solutions" class="hover:text-white transition-colors">Solutions</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="#quiz" class="hidden sm:inline-flex rounded-xl px-4 py-2 btn-primary font-semibold">Check if you qualify</a>
+          <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl glass" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobileNav" class="hidden md:hidden py-3 border-t border-white/10">
+        <div class="grid gap-3 text-white/80 px-4">
+          <a href="#fast" class="px-2 py-2 hover:text-white transition-colors">Fast Track</a>
+          <a href="#steps" class="px-2 py-2 hover:text-white transition-colors">How it works</a>
+          <a href="#solutions" class="px-2 py-2 hover:text-white transition-colors">Solutions</a>
+          <a href="#faq" class="px-2 py-2 hover:text-white transition-colors">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUIZ CARD -->
+  <main id="quiz" class="relative">
+    <div class="ukde-wrap">
+      <div class="card" id="ukde-quiz" role="region" aria-label="Debt Solution Finder">
+        <!-- Header -->
+        <div class="card-head">
+          <h1 class="title">Debt Solution Finder</h1>
+          <div class="step" id="step-label" aria-live="polite">Step 1 of 4</div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress" aria-hidden="true">
+          <span id="progress-bar" style="width:25%"></span>
+        </div>
+
+        <!-- Body (steps) -->
+        <div class="card-body">
+          <div id="live" class="sr-only" aria-live="polite"></div>
+
+          <!-- Step 1 -->
+          <section class="step-pane" data-step="1">
+            <h2 class="q">How much debt do you have?</h2>
+            <p class="help">Choose the closest bracket.</p>
+            <div class="grid" role="group" aria-label="Debt amount">
+              <button class="chip" data-value="Less than £5,000" aria-pressed="false">Less than £5,000</button>
+              <button class="chip" data-value="£5,000 to £10,000" aria-pressed="false">£5,000 to £10,000</button>
+              <button class="chip" data-value="£10,000 to £20,000" aria-pressed="false">£10,000 to £20,000</button>
+              <button class="chip" data-value="More than £20,000" aria-pressed="false">More than £20,000</button>
+            </div>
+          </section>
+
+          <!-- Step 2 -->
+          <section class="step-pane" data-step="2" hidden>
+            <h2 class="q">How many debts do you have?</h2>
+            <p class="help">A quick estimate is fine.</p>
+            <div class="grid" role="group" aria-label="Number of debts">
+              <button class="chip" data-value="Just the 1" aria-pressed="false">Just the 1</button>
+              <button class="chip" data-value="Between 2 to 3" aria-pressed="false">Between 2 to 3</button>
+              <button class="chip" data-value="4 or more" aria-pressed="false">4 or more</button>
+              <button class="chip" data-value="Not sure" aria-pressed="false">Not sure</button>
+            </div>
+          </section>
+
+          <!-- Step 3 -->
+          <section class="step-pane" data-step="3" hidden>
+            <h2 class="q">What is your employment status?</h2>
+            <p class="help">Pick the option that best describes you.</p>
+            <div class="grid" role="group" aria-label="Employment status">
+              <button class="chip" data-value="Employed" aria-pressed="false">Employed</button>
+              <button class="chip" data-value="Self Employed" aria-pressed="false">Self Employed</button>
+              <button class="chip" data-value="Unemployed or Student" aria-pressed="false">Unemployed or Student</button>
+              <button class="chip" data-value="Retired" aria-pressed="false">Retired</button>
+            </div>
+          </section>
+
+          <!-- Step 4 -->
+          <section class="step-pane" data-step="4" hidden>
+            <div class="good-news">Good news! We can help you.</div>
+            <p class="help" style="margin-top:-6px">Complete the form below with a few details…</p>
+
+            <form id="result-form" novalidate>
+              <div class="form-grid">
+                <div class="field" data-field="firstName">
+                  <label class="label" for="firstName">First Name</label>
+                  <input class="input" id="firstName" name="firstName" autocomplete="given-name" required />
+                  <p class="error-text">Please enter your first name.</p>
+                </div>
+
+                <div class="field" data-field="lastName">
+                  <label class="label" for="lastName">Last Name</label>
+                  <input class="input" id="lastName" name="lastName" autocomplete="family-name" required />
+                  <p class="error-text">Please enter your last name.</p>
+                </div>
+
+                <div class="field" data-field="email">
+                  <label class="label" for="email">Email</label>
+                  <input class="input" id="email" name="email" type="email" autocomplete="email" required />
+                  <p class="error-text">Enter a valid email address.</p>
+                  <p class="hint">We’ll send your results here.</p>
+                </div>
+
+                <div class="field" data-field="mobile">
+                  <label class="label" for="mobile">Mobile</label>
+                  <input class="input" id="mobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" required />
+                  <p class="error-text">Enter a valid mobile number.</p>
+                  <p class="hint">UK format preferred (07… or +44).</p>
+                </div>
+              </div>
+
+              <div class="ticks" aria-hidden="true">
+                <div class="tick">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12.75l2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Understand the pros & cons of each option
+                </div>
+                <div class="tick">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12.75l2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Learn how you could get support dealing with creditors
+                </div>
+                <div class="tick">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12.75l2 2 4-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  No obligation
+                </div>
+              </div>
+
+              <p class="hint" style="margin-top:16px">
+                By clicking ‘Get Results’ you confirm you have read and agreed to our
+                <a href="/terms-conditions/" style="color:var(--brand); font-weight:700; text-decoration:underline;">Terms &amp; Conditions</a>.
+              </p>
+            </form>
+          </section>
+
+          <!-- Success screen -->
+          <div class="success" id="success" role="status" aria-live="polite">
+            <h3>Thanks — your results are on the way.</h3>
+            <p>We’ll be in touch shortly with options tailored to your answers.</p>
+          </div>
+        </div>
+
+        <!-- Footer controls -->
+        <div class="card-foot">
+          <button class="btn btn-link" id="prev" disabled>Previous</button>
+          <div style="flex:1"></div>
+          <button class="btn" id="next">Next question</button>
+          <button class="btn btn-primary" id="submit" hidden>Get Results</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER (unchanged) -->
+  <footer class="bg-ink-900 border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-white/70 text-center">
+      © <span id="year"></span> All rights reserved. <br />
+      We are not a debt management firm and do not offer IVAs, DMPs, or DROs directly. We connect you to FCA-authorised experts for tailored debt solutions.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle with ARIA sync
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn?.addEventListener('click', () => {
+      const opened = mobileNav.classList.toggle('hidden') ? 'false' : 'true';
+      menuBtn.setAttribute('aria-expanded', opened);
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---------- Quiz logic ----------
+    (function(){
+      const el = (sel, root=document) => root.querySelector(sel);
+      const els = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+      const quiz = el('#ukde-quiz');
+      const panes = els('.step-pane', quiz);
+      const progress = el('#progress-bar', quiz);
+      const stepLabel = el('#step-label', quiz);
+      const live = el('#live', quiz);
+
+      const btnPrev = el('#prev', quiz);
+      const btnNext = el('#next', quiz);
+      const btnSubmit = el('#submit', quiz);
+      const success = el('#success', quiz);
+
+      let current = 0; // 0..3
+      const state = { step1:null, step2:null, step3:null };
+
+      function announce(msg){
+        live.textContent = '';
+        setTimeout(()=>{ live.textContent = msg; }, 10);
+      }
+
+      function updateHeader(){
+        const step = current + 1;
+        stepLabel.textContent = `Step ${step} of 4`;
+        progress.style.width = ((step/4)*100) + '%';
+        announce(step === 4 ? 'Final step' : `Step ${step} of 4`);
+      }
+
+      function showStep(index){
+        panes.forEach((p,i)=> p.hidden = i!==index);
+        current = index;
+        btnPrev.disabled = current===0;
+        btnNext.hidden = current===3;
+        btnSubmit.hidden = current!==3;
+        updateHeader();
+        const first = panes[current].querySelector('.chip, input, button');
+        if(first) first.focus({preventScroll:true});
+      }
+
+      function bindChips(){
+        panes.forEach((pane, idx)=>{
+          const chips = els('.chip', pane);
+          chips.forEach(chip=>{
+            chip.addEventListener('click', ()=>{
+              chips.forEach(c=>{ c.classList.remove('active'); c.setAttribute('aria-pressed','false'); });
+              chip.classList.add('active'); chip.setAttribute('aria-pressed','true');
+              const val = chip.getAttribute('data-value');
+              if(idx===0) state.step1 = val;
+              if(idx===1) state.step2 = val;
+              if(idx===2) state.step3 = val;
+            });
+            chip.addEventListener('keydown', (e)=>{
+              if(e.key==='Enter' || e.key===' '){ e.preventDefault(); chip.click(); }
+            });
+          });
+        });
+      }
+
+      function canAdvance(){
+        if(current===0) return !!state.step1;
+        if(current===1) return !!state.step2;
+        if(current===2) return !!state.step3;
+        return true;
+      }
+
+      btnNext.addEventListener('click', ()=>{
+        if(!canAdvance()){
+          const chips = els('.chip', panes[current]);
+          chips.forEach(c=> c.classList.add('shake'));
+          setTimeout(()=> chips.forEach(c=> c.classList.remove('shake')), 300);
+          return;
+        }
+        showStep(Math.min(current+1, 3));
+      });
+
+      btnPrev.addEventListener('click', ()=> showStep(Math.max(current-1, 0)));
+
+      // Step 4 form validation + submit
+      const form = el('#result-form');
+      const fields = {
+        firstName: el('#firstName'),
+        lastName: el('#lastName'),
+        email: el('#email'),
+        mobile: el('#mobile')
+      };
+
+      function setFieldError(input, hasError){
+        const wrapper = input.closest('.field');
+        if(!wrapper) return;
+        wrapper.classList.toggle('error', !!hasError);
+      }
+
+      function validateEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v||'').trim()); }
+      function validateMobile(v){
+        const s = (v||'').replace(/\s+/g,'');
+        return /^(\+44\s?\d{9,10}|0\d{9,10})$/.test(s);
+      }
+
+      function validateForm(){
+        let ok = true;
+        setFieldError(fields.firstName, !fields.firstName.value.trim()); if(!fields.firstName.value.trim()) ok = false;
+        setFieldError(fields.lastName, !fields.lastName.value.trim());   if(!fields.lastName.value.trim()) ok = false;
+        setFieldError(fields.email, !validateEmail(fields.email.value)); if(!validateEmail(fields.email.value)) ok = false;
+        setFieldError(fields.mobile, !validateMobile(fields.mobile.value)); if(!validateMobile(fields.mobile.value)) ok = false;
+        return ok;
+      }
+
+      Object.values(fields).forEach(inp=>{
+        inp.addEventListener('input', ()=> setFieldError(inp, false));
+        inp.addEventListener('blur', ()=>{
+          if(inp===fields.email)  setFieldError(inp, !validateEmail(inp.value));
+          if(inp===fields.mobile) setFieldError(inp, !validateMobile(inp.value));
+        });
+      });
+
+      btnSubmit.addEventListener('click', (e)=>{
+        e.preventDefault();
+        if(!validateForm()) return;
+
+        const payload = {
+          amount: state.step1, count: state.step2, employment: state.step3,
+          firstName: fields.firstName.value.trim(),
+          lastName: fields.lastName.value.trim(),
+          email: fields.email.value.trim(),
+          mobile: fields.mobile.value.trim()
+        };
+
+        // Example POST (uncomment & adapt):
+        // fetch('/leads2.php', {
+        //   method:'POST',
+        //   headers:{ 'Content-Type':'application/x-www-form-urlencoded' },
+        //   body: new URLSearchParams(payload).toString()
+        // });
+
+        panes.forEach(p => p.hidden = true);
+        success.style.display = 'block';
+        btnPrev.disabled = true;
+        btnNext.hidden = true;
+        btnSubmit.hidden = true;
+        stepLabel.textContent = 'Finished';
+        progress.style.width = '100%';
+        announce('Form submitted successfully');
+      });
+
+      // Init
+      bindChips();
+      showStep(0);
+    })();
+  </script>
+</body>
+</html>
