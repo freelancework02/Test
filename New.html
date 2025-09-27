@@ -10,18 +10,32 @@
       theme: {
         extend: {
           colors: {
+            // Core palette (kept your names, tuned for contrast)
             ink: {
-              50: '#f3f7fb', 100: '#e7eff6', 200: '#c4d9ea', 300: '#9fc1dc', 400: '#5e9bc7', 500: '#2b6da3', 600: '#1e527f', 700: '#184263', 800: '#13354f', 900: '#0d2638'
+              50:'#f3f7fb',100:'#e7eff6',200:'#c4d9ea',300:'#9fc1dc',
+              400:'#5e9bc7',500:'#2b6da3',600:'#1e527f',700:'#163a59',
+              800:'#102c44',900:'#0b2032' // darker for accessible contrast
             },
-          accent: {
-            50:'#fff6ed',100:'#ffe6cc',200:'#ffd0a3',300:'#ffb26d',400:'#ff8f26',500:'#ff7a00',600:'#e36a00',700:'#b45200',800:'#8a3f00',900:'#5c2900'
+            accent: {
+              50:'#fff6ed',100:'#ffe6cc',200:'#ffd0a3',300:'#ffb26d',
+              400:'#ff922e',500:'#ff7a00',600:'#e56f00',700:'#bf5b00',
+              800:'#974900',900:'#6f3500'
+            },
+            tealish: {
+              50:'#e6f8f6',100:'#c8efea',200:'#98e1d8',300:'#63cfc4',
+              400:'#35b7ad',500:'#179e94',600:'#0e7e78',700:'#106460',
+              800:'#0f504d',900:'#0a3534'
+            }
           },
-          tealish: {
-            50:'#e6f8f6',100:'#c8efea',200:'#98e1d8',300:'#63cfc4',400:'#35b7ad',500:'#179e94',600:'#0e7e78',700:'#106460',800:'#0f504d',900:'#0a3534'
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,.25)'
+          },
+          borderRadius: {
+            xl2: '1rem'
+          },
+          fontFamily: {
+            sans: ["Inter","ui-sans-serif","system-ui","-apple-system","Segoe UI","Roboto","Helvetica Neue","Noto Sans","sans-serif"]
           }
-        },
-        fontFamily: {
-          sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Noto Sans", "sans-serif"]
         }
       }
     }
@@ -30,106 +44,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    /* Background blobs */
+    .blob{ filter:blur(40px); opacity:.45; animation:float 20s infinite ease-in-out; }
+    .blob:nth-child(1){ animation-delay:0s; }
+    .blob:nth-child(2){ animation-delay:7s; }
+    .blob:nth-child(3){ animation-delay:14s; }
+    @keyframes float{
+      0%,100%{ transform:translate(0,0) scale(1);}
+      33%{ transform:translate(30px,-20px) scale(1.05);}
+      66%{ transform:translate(-20px,20px) scale(0.95);}
+    }
 
-     body{
-        background-color: #1A4F65;
-     }
-   
-    .blob { 
-      filter: blur(40px); 
-      opacity:.5;
-      animation: float 20s infinite ease-in-out;
+    .glass{ background:rgba(255,255,255,.08); backdrop-filter:blur(10px) saturate(120%); transition:all .3s ease; }
+    .card-hover{ transition:transform .28s ease, box-shadow .28s ease, background .28s ease; }
+    .card-hover:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.22); }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--a500,#ff7a00) 0%, var(--a400,#ff922e) 100%);
+      color:#fff; border:0;
+      box-shadow:0 8px 24px rgba(255,122,0,.35);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
     }
-    .blob:nth-child(1) { animation-delay: 0s; }
-    .blob:nth-child(2) { animation-delay: 7s; }
-    .blob:nth-child(3) { animation-delay: 14s; }
-    
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -20px) scale(1.05); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
+    .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 14px 38px rgba(255,122,0,.45); filter:saturate(105%); }
+
+    .btn-secondary{
+      background:transparent; color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+      transition:all .2s ease;
     }
-    
-    .glass { 
-      background: rgba(255,255,255,.08); 
-      backdrop-filter: blur(8px) saturate(120%); 
-      transition: all 0.3s ease;
+    .btn-secondary:hover{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.4); }
+
+    .fade-in{ opacity:0; animation:fadeIn .9s ease forwards; }
+    @keyframes fadeIn{ to{ opacity:1; } }
+
+    .stagger-animation > *{ opacity:0; animation:fadeInUp .7s ease forwards; }
+    .stagger-animation > *:nth-child(1){ animation-delay:.08s; }
+    .stagger-animation > *:nth-child(2){ animation-delay:.16s; }
+    .stagger-animation > *:nth-child(3){ animation-delay:.24s; }
+    .stagger-animation > *:nth-child(4){ animation-delay:.32s; }
+    .stagger-animation > *:nth-child(5){ animation-delay:.40s; }
+    @keyframes fadeInUp{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+
+    @media (max-width: 767px){
+      #mobileNav{ position:absolute; top:100%; left:0; right:0; background:rgba(11,32,50,.96); backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,.1); }
     }
-    
-    .card-hover {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .card-hover:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #ff7a00 0%, #ff8f26 100%);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 122, 0, 0.3);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 122, 0, 0.4);
-    }
-    
-    .btn-secondary {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s ease;
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
-    }
-    
-    .fade-in {
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-    }
-    
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    
-    .stagger-animation > * {
-      opacity: 0;
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    
-    .stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
-    .stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
-    .stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
-    .stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
-    .stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Improved mobile navigation */
-    @media (max-width: 767px) {
-      #mobileNav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(13, 38, 56, 0.95);
-        backdrop-filter: blur(10px);
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-    }
+
+    .input-error{ border-color:#fecaca !important; box-shadow:0 0 0 3px rgba(239,68,68,.15) !important; }
   </style>
 </head>
 <body class="bg-ink-900 text-white antialiased scroll-smooth overflow-x-hidden">
@@ -141,11 +101,11 @@
   </div>
 
   <!-- NAVBAR -->
-  <header class=" bg-[#1A4F65] sticky top-0 z-50 backdrop-blur bg-ink-900/90 border-b border-white/5">
+  <header class="sticky top-0 z-50 backdrop-blur bg-ink-900/90 border-b border-white/10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <a href="#home" class="flex items-center gap-3 fade-in">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tealish-400/20">
+        <a href="#home" class="flex items-center gap-3">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tealish-400/15">
             <svg viewBox="0 0 24 24" class="h-5 w-5 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18m-9-9h18"/></svg>
           </span>
           <span class="font-semibold tracking-tight">UK Debt Expert</span>
@@ -158,12 +118,12 @@
         </nav>
         <div class="flex items-center gap-3">
           <a href="#check" class="hidden sm:inline-flex rounded-xl px-4 py-2 btn-primary font-semibold">Check if you qualify</a>
-          <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl glass">
-            <svg id="menuIcon" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl glass" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
         </div>
       </div>
-      <div id="mobileNav" class="hidden md:hidden py-3 border-t border-white/5">
+      <div id="mobileNav" class="hidden md:hidden py-3 border-t border-white/10">
         <div class="grid gap-3 text-white/80 px-4">
           <a href="#fast" class="px-2 py-2 hover:text-white transition-colors">Fast Track</a>
           <a href="#steps" class="px-2 py-2 hover:text-white transition-colors">How it works</a>
@@ -175,279 +135,261 @@
   </header>
 
   <!-- HERO -->
- <!-- Hero Section -->
-<section id="home" class="relative bg-gradient-to-b from-[#0d2d39] to-[#133b4b]  overflow-hidden">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-    <div class="grid lg:grid-cols-2 items-center gap-12">
-      
-      <!-- Hero Image Section (LEFT SIDE) -->
-      <div class="relative fade-in flex justify-center lg:justify-start order-2 lg:order-1">
-        <div class="relative max-w-md w-full">
-          <div class="absolute -top-6 -right-6 w-32 h-32 bg-teal-400/20 rounded-3xl rotate-12"></div>
-          <div class="absolute -bottom-6 -left-6 w-28 h-28 bg-indigo-400/20 rounded-full"></div>
-          <div class="relative rounded-3xl ">
-            <img 
-              src="https://ukdebtexpert.co.uk/wp-content/uploads/2024/05/hero-desktop.png" 
-              alt="UK Debt Expert - Professional debt advice" 
-              class="w-full h-auto object-cover"
-            />
+  <section id="home" class="relative bg-gradient-to-b from-ink-900 to-ink-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div class="grid lg:grid-cols-2 items-center gap-12">
+        <!-- Image -->
+        <div class="relative fade-in order-2 lg:order-1">
+          <div class="relative max-w-md w-full mx-auto lg:mx-0">
+            <div class="absolute -top-6 -right-6 w-32 h-32 bg-tealish-400/20 rounded-3xl rotate-12"></div>
+            <div class="absolute -bottom-6 -left-6 w-28 h-28 bg-accent-400/20 rounded-full"></div>
+            <div class="relative rounded-3xl overflow-hidden shadow-soft ring-1 ring-white/10">
+              <img src="https://ukdebtexpert.co.uk/wp-content/uploads/2024/05/hero-desktop.png" alt="UK Debt Expert - Professional debt advice" class="w-full h-auto object-cover"/>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Text Content (RIGHT SIDE) -->
-      <div class="stagger-animation order-1 lg:order-2 text-white">
-        <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10 fade-in">
-          <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-white">⭐</span>
-          5-star rated guidance
-        </div>
-        <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight fade-in">
-          Expert advice. <br class="hidden sm:block"/>Real solutions.
-        </h1>
-        <p class="mt-4 text-white/80 max-w-xl text-lg fade-in">
-          Join thousands of people who get a clear plan each week. No judgement. Just practical steps to get back in control of your debts.
-        </p>
-        
-        <!-- Buttons -->
-        <div class="mt-8 flex flex-col sm:flex-row gap-3 fade-in">
-          <a href="#check" class="rounded-2xl px-6 py-3 btn-primary font-semibold text-center">Check eligibility</a>
-          <a href="#fast" class="rounded-2xl px-6 py-3 btn-secondary font-semibold text-center">See Fast Track</a>
-        </div>
-        
-        <!-- Stats -->
-        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-white/70 fade-in">
-          <div class="glass rounded-xl p-3 card-hover">
-            <p class="font-semibold text-white">£1B+</p>
-            <p>of debts managed</p>
-          </div>
-          <div class="glass rounded-xl p-3 card-hover">
-            <p class="font-semibold text-white">200k+</p>
-            <p>people helped in the UK</p>
-          </div>
-          <div class="glass rounded-xl p-3 card-hover">
-            <p class="font-semibold text-white">24 hrs</p>
-            <p>to speak with an expert</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Responsive Debt Help Section -->
-<section class="w-full">
-  <div class="grid grid-cols-1 md:grid-cols-2">
-    
-    <!-- LEFT: Image -->
-    <div class="w-full h-full">
-      <img 
-        src="https://debtadviceuk.org.uk/images/mother-daughter-using-mobile-living-room.jpg" 
-        alt="Happy family debt advice" 
-        class="w-full h-full object-cover"
-      />
+        <!-- Copy -->
+        <div class="stagger-animation order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs bg-white/10 border border-white/10">
+            <span class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-400"></span>
+            5-star rated guidance
+          </div>
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">Expert advice.<br class="hidden sm:block"/>Real solutions.</h1>
+          <p class="mt-4 text-white/80 max-w-xl text-lg">Join thousands who get a clear plan each week. No judgement. Just practical steps to get back in control.</p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="#check" class="rounded-2xl px-6 py-3 btn-primary font-semibold text-center">Check eligibility</a>
+            <a href="#fast" class="rounded-2xl px-6 py-3 btn-secondary font-semibold text-center">See Fast Track</a>
+          </div>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-white/70">
+            <div class="glass rounded-xl p-3 card-hover">
+              <p class="font-semibold text-white">£1B+</p><p>of debts managed</p>
+            </div>
+            <div class="glass rounded-xl p-3 card-hover">
+              <p class="font-semibold text-white">200k+</p><p>people helped in the UK</p>
+            </div>
+            <div class="glass rounded-xl p-3 card-hover">
+              <p class="font-semibold text-white">24 hrs</p><p>to speak with an expert</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <!-- RIGHT: Content -->
-    <div class="flex flex-col justify-center bg-[#1A4F65] text-white px-6 sm:px-10 lg:px-16 py-12">
-      <div class="max-w-xl">
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-snug">
-          Let’s deal with debt together. <br class="hidden sm:block"/>Get practical help.
-        </h2>
-        
-        <p class="text-base sm:text-lg mb-4 leading-relaxed">
-          Thousands of people in the UK are struggling with debt, which can be very stressful. 
-          So, getting the right information should be very important to you.
-        </p>
-        
-        <p class="text-base sm:text-lg mb-6 leading-relaxed">
-          All debt problems can be solved. If you’re struggling with debt, try not to worry but do not ignore your problem. 
-          It’s important to take action now to get in control of your finances.
-        </p>
-        
-        <!-- Button -->
-        <a href="#help" 
-           class="inline-block bg-green-500 hover:bg-green-600 transition-all text-white font-semibold px-6 py-3 rounded-full text-center">
-          Get debt help now →
+  </section>
+
+  <!-- PROMO SPLIT -->
+  <section class="w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="w-full h-full">
+        <img src="https://debtadviceuk.org.uk/images/mother-daughter-using-mobile-living-room.jpg" alt="Family getting help with debt" class="w-full h-full object-cover"/>
+      </div>
+      <div class="flex flex-col justify-center bg-ink-800 text-white px-6 sm:px-10 lg:px-16 py-12">
+        <div class="max-w-xl">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-snug">Let’s deal with debt together. Get practical help.</h2>
+          <p class="text-base sm:text-lg/7 text-white/85 mb-4">Thousands in the UK are struggling with debt. The right information matters—and it helps.</p>
+          <p class="text-base sm:text-lg/7 text-white/85 mb-6">All debt problems can be solved. Don’t ignore it—take a simple step now and get back in control.</p>
+          <a href="#check" class="inline-block rounded-full px-6 py-3 btn-primary font-semibold text-center">Get debt help now →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEBT TYPES GRID (light section) -->
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-10">What debt are you most concerned about?</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 text-ink-800">
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/bank-card-back-side.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Credit Cards</p></div>
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/money-bag-pound.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Payday Loans</p></div>
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/bank-cards.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Store Cards</p></div>
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/coins.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Overdrafts</p></div>
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/bank.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Personal Loans</p></div>
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/contract.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Lines of Credit</p></div>
+        <div class="flex flex-col items-center"><img src="https://debtadviceuk.org.uk/images/catalogue.fw_%20(1).svg" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Utility Debt</p></div>
+        <div class="flex flex-col items-center"><img src="https://img.icons8.com/ios/100/1A4F65/calculator.png" class="h-14 w-14 mb-3" alt=""><p class="font-medium">Council Tax Debt</p></div>
+      </div>
+      <div class="mt-10">
+        <a href="#check" class="inline-flex items-center gap-2 rounded-full px-6 py-3 btn-primary font-semibold">
+          Get debt help now
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
-    
-  </div>
-</section>
+  </section>
 
+  <!-- FAST TRACK (calculator) -->
+  <section id="fast" class="bg-ink-900">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div class="grid lg:grid-cols-2 gap-10">
+        <div class="stagger-animation">
+          <h2 class="text-3xl sm:text-4xl font-extrabold">Fast Track: debt advice your way</h2>
+          <p class="mt-2 text-white/75">Choose fast online steps or a call with a specialist. Either way, you’ll leave with a plan you can actually stick to.</p>
 
+          <div class="mt-8 grid md:grid-cols-2 gap-6">
+            <div class="rounded-2xl p-6 border border-white/10 bg-white/5 card-hover">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-200/20 text-emerald-300">
+                  <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <h3 class="font-semibold">With Fast Track</h3>
+              </div>
+              <ul class="space-y-2 text-sm text-white/80">
+                <li class="flex gap-2"><span>•</span> 5-minute questionnaire to map your situation</li>
+                <li class="flex gap-2"><span>•</span> Options based on your budget</li>
+                <li class="flex gap-2"><span>•</span> Chat or call an expert when ready</li>
+                <li class="flex gap-2"><span>•</span> Reduce stress today</li>
+              </ul>
+              <button class="mt-5 px-4 py-2 rounded-xl btn-primary">Start Fast Track</button>
+            </div>
 
-  <!-- FAST TRACK -->
-<section class="bg-white py-16">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
-    <!-- Heading -->
-    <h2 class="text-2xl md:text-3xl font-bold text-ink-900 mb-10">
-      What debt are you most concerned about?
-    </h2>
+            <div class="rounded-2xl p-6 border border-white/10 bg-white/5 card-hover">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-rose-200/20 text-rose-300">
+                  <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </span>
+                <h3 class="font-semibold">Without Fast Track</h3>
+              </div>
+              <ul class="space-y-2 text-sm text-white/80">
+                <li class="flex gap-2"><span>•</span> Longer wait to speak to someone</li>
+                <li class="flex gap-2"><span>•</span> Fewer tailored options</li>
+                <li class="flex gap-2"><span>•</span> More back-and-forth</li>
+              </ul>
+              <button class="mt-5 px-4 py-2 rounded-xl border border-white/20 text-white hover:bg-white/10 transition">Talk to an expert</button>
+            </div>
+          </div>
+        </div>
 
-    <!-- Debt Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-      <!-- Item -->
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/bank-card-back-side.png" alt="Credit Cards" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Credit Cards</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/money-bag-pound.png" alt="Payday Loans" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Payday Loans</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/bank-cards.png" alt="Store Cards" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Store Cards</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/coins.png" alt="Overdrafts" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Overdrafts</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/bank.png" alt="Personal Loans" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Personal Loans</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/contract.png" alt="Lines of Credit" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Lines of Credit</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://debtadviceuk.org.uk/images/catalogue.fw_%20(1).svg" alt="Utility Debt" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Utility Debt</p>
-      </div>
-
-      <div class="flex flex-col items-center text-center">
-        <img src="https://img.icons8.com/ios/100/1A4F65/calculator.png" alt="Council Tax Debt" class="h-14 w-14 mb-3">
-        <p class="font-medium text-gray-800">Council Tax Debt</p>
+        <!-- Calculator card -->
+        <div class="lg:pl-8">
+          <div class="rounded-3xl p-6 md:p-8 bg-ink-800 text-white shadow-soft ring-1 ring-white/10 card-hover">
+            <h3 class="text-2xl font-bold">Get your options in 60 seconds</h3>
+            <p class="text-white/70 text-sm">Answer a few questions. We’ll show what you may qualify for.</p>
+            <form id="eligibilityForm" class="mt-6 grid gap-4" novalidate>
+              <div>
+                <label class="text-sm" for="debt">Total unsecured debt</label>
+                <input id="debt" type="number" min="0" required placeholder="e.g. 6500" class="mt-1 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-accent-400"/>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm" for="income">Monthly income (after tax)</label>
+                  <input id="income" type="number" min="0" required placeholder="e.g. 2150" class="mt-1 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-accent-400"/>
+                </div>
+                <div>
+                  <label class="text-sm" for="spend">Essential spending</label>
+                  <input id="spend" type="number" min="0" required placeholder="e.g. 1640" class="mt-1 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-accent-400"/>
+                </div>
+              </div>
+              <div>
+                <label class="text-sm" for="arrears">Are any debts in arrears?</label>
+                <select id="arrears" class="mt-1 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-accent-400">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+              <button class="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl btn-primary font-semibold px-6 py-3" type="submit">
+                Check eligibility
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <p id="result" class="hidden text-sm p-3 rounded-xl bg-white/5 mt-2" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Button -->
-    <div class="mt-10">
-      <a href="#check" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-300 text-white font-semibold px-6 py-3 rounded-full transition">
-        Get debt help now
-        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M9 5l7 7-7 7"/>
-        </svg>
-      </a>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- STEPS -->
-<section id="steps" >
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center max-w-2xl mx-auto stagger-animation">
-      <h2 class="text-3xl font-extrabold fade-in">How we can help you</h2>
-    </div>
-    <div class="mt-10 grid sm:grid-cols-3 gap-6 stagger-animation">
-      
-      <!-- Step 1 -->
-      <div class="glass rounded-2xl p-6 border border-white/10 card-hover">
-        <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-          <!-- Pound Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20H7a4 4 0 01-4-4V7a4 4 0 014-4h4l2 2h4a4 4 0 014 4v7a4 4 0 01-4 4z" />
-          </svg>
-        </div>
-        <h3 class="font-semibold mb-1">1. Work out your budget</h3>
-        <p class="text-white/70 text-sm">Look at your income, spending, and debts to understand your finances.</p>
+  <section id="steps" class="bg-ink-900">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl font-extrabold">How we can help you</h2>
       </div>
-      
-      <!-- Step 2 -->
-      <div class="glass rounded-2xl p-6 border border-white/10 card-hover">
-        <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-          <!-- People Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-5-4h-1a4 4 0 00-8 0H7a4 4 0 00-5 4v2h5" />
-            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
-          </svg>
+      <div class="mt-10 grid sm:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-6 border border-white/10 card-hover">
+          <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20H7a4 4 0 01-4-4V7a4 4 0 014-4h4l2 2h4a4 4 0 014 4v7a4 4 0 01-4 4z"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">1. Work out your budget</h3>
+          <p class="text-white/70 text-sm">Map your income, spending, and debts so the plan fits your life.</p>
         </div>
-        <h3 class="font-semibold mb-1">2. Manage Your Debt</h3>
-        <p class="text-white/70 text-sm">Find a way to manage your debts that is affordable and suits your situation.</p>
-      </div>
-      
-      <!-- Step 3 -->
-      <div class="glass rounded-2xl p-6 border border-white/10 card-hover">
-        <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-          <!-- Coins Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11c0-1.657 3.582-3 8-3s8 1.343 8 3-3.582 3-8 3-8-1.343-8-3zM3 11c0-1.657 3.582-3 8-3s8 1.343 8 3-3.582 3-8 3-8-1.343-8-3z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15c0 1.657 3.582 3 8 3s8-1.343 8-3" />
-          </svg>
-        </div>
-        <h3 class="font-semibold mb-1">3. Get The Right Debt Solution</h3>
-        <p class="text-white/70 text-sm">One of our experts will set up your debt solution and offer support along the way.</p>
-      </div>
-    </div>
 
-    <!-- Button -->
-    <div class="text-center mt-10">
-      <button class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition">
-        Get debt help now
-      </button>
-    </div>
-  </div>
-</section>
+        <div class="glass rounded-2xl p-6 border border-white/10 card-hover">
+          <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-5-4h-1a4 4 0 00-8 0H7a4 4 0 00-5 4v2h5"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">2. Manage your debt</h3>
+          <p class="text-white/70 text-sm">Choose an affordable route—flexible when life changes.</p>
+        </div>
 
+        <div class="glass rounded-2xl p-6 border border-white/10 card-hover">
+          <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 11c0-1.657 3.582-3 8-3s8 1.343 8 3-3.582 3-8 3-8-1.343-8-3zM3 15c0 1.657 3.582 3 8 3s8-1.343 8-3"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">3. Get the right solution</h3>
+          <p class="text-white/70 text-sm">We help set it up and support you along the way.</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="#check" class="rounded-2xl px-6 py-3 btn-primary font-semibold inline-flex items-center gap-2">Get debt help now
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- SOLUTIONS -->
-  <section id="solutions" class="bg-[#1A4F65] text-ink-900">
+  <section id="solutions" class="bg-ink-800 text-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-      <div class="text-center max-w-2xl mx-auto stagger-animation">
-        <h2 class="text-3xl font-extrabold fade-in">Advice & solutions for debts like</h2>
-        <p class="mt-2 text-ink-700 fade-in">Credit cards • Loans • Council tax • Buy-now-pay-later • Business debt</p>
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl font-extrabold">Advice & solutions for debts like</h2>
+        <p class="mt-2 text-white/80">Credit cards • Loans • Council tax • Buy-now-pay-later • Business debt</p>
       </div>
 
-      <div class="mt-10 grid md:grid-cols-3 gap-6 stagger-animation">
-        <!-- IVA card -->
-        <article class="rounded-2xl border border-ink-200 p-6 shadow-sm card-hover">
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <article class="rounded-2xl border border-white/10 p-6 bg-white/5 card-hover">
           <div class="flex items-center gap-3">
-            <div class="bg-white text-black h-10 w-10 rounded-xl bg-tealish-100 text-tealish-700 flex items-center justify-center">IVA</div>
+            <div class="h-10 w-10 rounded-xl bg-tealish-200/15 text-tealish-200 flex items-center justify-center font-semibold">IVA</div>
             <h3 class="font-semibold">Individual Voluntary Arrangement</h3>
           </div>
-          <p class="mt-3 text-sm text-ink-700">Make one affordable monthly payment, usually for 5–6 years. Remaining unsecured debt may be written off.</p>
-          <ul class="mt-3 space-y-1 text-sm text-ink-700">
+          <p class="mt-3 text-sm text-white/80">One affordable monthly payment, usually for 5–6 years. Remaining unsecured debt may be written off.</p>
+          <ul class="mt-3 space-y-1 text-sm text-white/80">
             <li>• Stops most interest and contact from creditors</li>
             <li>• Protects essential assets</li>
           </ul>
-          <button class="bg-white mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-ink-900 text-black hover:bg-ink-800 transition-colors">See if IVA fits <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">See if IVA fits
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
 
-        <!-- DMP card -->
-        <article class="rounded-2xl border border-ink-200 p-6 shadow-sm card-hover">
+        <article class="rounded-2xl border border-white/10 p-6 bg-white/5 card-hover">
           <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center">DMP</div>
+            <div class="h-10 w-10 rounded-xl bg-indigo-200/15 text-indigo-200 flex items-center justify-center font-semibold">DMP</div>
             <h3 class="font-semibold">Debt Management Plan</h3>
           </div>
-          <p class="mt-3 text-sm text-ink-700">Flexible informal plan with reduced payments negotiated on your behalf. Good if your situation may change.</p>
-          <ul class="mt-3 space-y-1 text-sm text-ink-700">
+          <p class="mt-3 text-sm text-white/80">Flexible informal plan with reduced payments negotiated on your behalf. Good if your situation may change.</p>
+          <ul class="mt-3 space-y-1 text-sm text-white/80">
             <li>• One payment distributed to creditors</li>
             <li>• Can pause or adjust when needed</li>
           </ul>
-          <button class="bg-white mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-ink-900 text-black hover:bg-ink-800 transition-colors">Explore DMP <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">Explore DMP
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
 
-        <!-- Trust Deed card -->
-        <article class="rounded-2xl border border-ink-200 p-6 shadow-sm card-hover">
+        <article class="rounded-2xl border border-white/10 p-6 bg-white/5 card-hover">
           <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center">TD</div>
+            <div class="h-10 w-10 rounded-xl bg-rose-200/15 text-rose-200 flex items-center justify-center font-semibold">TD</div>
             <h3 class="font-semibold">Scottish Trust Deed</h3>
           </div>
-          <p class="mt-3 text-sm text-ink-700">For Scottish residents. Legally binding agreement with fixed term payments and potential write-off at the end.</p>
-          <ul class="mt-3 space-y-1 text-sm text-ink-700">
+          <p class="mt-3 text-sm text-white/80">For Scottish residents. Legally binding agreement with fixed-term payments and a potential write-off at the end.</p>
+          <ul class="mt-3 space-y-1 text-sm text-white/80">
             <li>• Typically 4 years</li>
             <li>• Stops most creditor action</li>
           </ul>
-          <button class="bg-white mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-ink-900 text-black hover:bg-ink-800 transition-colors">Check eligibility <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-primary">Check eligibility
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
       </div>
     </div>
@@ -455,176 +397,139 @@
 
   <!-- FAQ -->
   <section id="faq" class="bg-ink-900">
-  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center stagger-animation">
-      <h2 class="text-3xl font-extrabold fade-in">Frequently asked questions</h2>
-      <p class="mt-2 text-white/70 fade-in">Quick answers to the big things people worry about.</p>
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center">
+        <h2 class="text-3xl font-extrabold">Frequently asked questions</h2>
+        <p class="mt-2 text-white/70">Quick answers to the big things people worry about.</p>
+      </div>
+
+      <div class="mt-10 divide-y divide-white/10 rounded-2xl border border-white/10">
+        <details class="group open:bg-white/5 p-5 transition-all duration-300">
+          <summary class="flex cursor-pointer items-center justify-between text-left list-none">
+            <h3 class="font-semibold">Will a debt solution affect my partner?</h3>
+            <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 text-white/70">Not usually. If the debts are solely in your name, your partner’s credit file shouldn’t be affected. Joint debts or shared finance can be.</p>
+        </details>
+
+        <details class="group p-5 transition-all duration-300">
+          <summary class="flex cursor-pointer items-center justify-between text-left list-none">
+            <h3 class="font-semibold">Should I still pay my creditors?</h3>
+            <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 text-white/70">Keep paying what you can until a solution is in place. We’ll help you prioritise essentials first.</p>
+        </details>
+
+        <details class="group p-5 transition-all duration-300">
+          <summary class="flex cursor-pointer items-center justify-between text-left list-none">
+            <h3 class="font-semibold">Will entering a debt solution affect my credit rating?</h3>
+            <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 text-white/70">Most do for up to six years. The trade-off is affordable payments and a path back to stability.</p>
+        </details>
+
+        <details class="group p-5 transition-all duration-300">
+          <summary class="flex cursor-pointer items-center justify-between text-left list-none">
+            <h3 class="font-semibold">Fees?</h3>
+            <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 text-white/70">Advice is free. Some solutions include fees—we’ll be upfront before you decide anything.</p>
+        </details>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="#check" class="inline-flex items-center gap-2 rounded-2xl btn-primary font-semibold px-6 py-3">
+          Still unsure? Chat with us
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+        </a>
+      </div>
     </div>
-
-    <div class="mt-10 divide-y divide-white/10 rounded-2xl border border-white/10 stagger-animation">
-      
-      <details class="group open:bg-white/5 p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">Will a debt solution affect my partner?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">Not usually. If the debts are solely in your name, your partner’s credit file or finances shouldn’t be affected. However, if you have joint debts or shared financial agreements (like a joint loan or mortgage), your partner may be impacted. It’s important to speak to your advisor to understand your specific circumstances.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">Should I still pay my creditors?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">Yes, you should continue making payments to your creditors until your debt solution is agreed and in place. Missing payments before then could lead to additional interest, charges, or enforcement action. Once your solution starts, payments will usually be made through your provider.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">Will entering a debt solution affect my credit rating?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">Yes, most debt solutions will have a negative impact on your credit file and will be recorded for six years. However, if you’re already behind on payments or struggling with debt, your credit score may already be affected. A solution can help you take control and work towards rebuilding your credit over time.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">If I enter a debt solution, can I still have a phone contract or vehicle finance?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">You may still be able to get a mobile phone contract or vehicle finance, but it could be more difficult. Lenders may see you as higher risk, so your options may be limited or come with higher interest rates. It’s best to speak to your provider before taking on any new financial commitments.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">Will I need to pay any fees?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">All advice provided is free. However, some debt solutions do include fees, and these will be explained in full before you commit.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">Will entering a debt solution affect my job?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">In most cases, no. However, some professions—particularly in finance, law, or roles requiring security clearance—may be affected. Check your employment contract or speak to your HR department if you’re unsure.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">What is an unsecured debt over a secured debt?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">Unsecured debt is borrowing that isn’t tied to an asset, such as credit cards, personal loans, or overdrafts. Secured debt, like a mortgage or car finance, is linked to an item that the lender can reclaim if you fall behind on payments. Most debt solutions only cover unsecured debts.</p>
-      </details>
-
-      <details class="group p-5 transition-all duration-300">
-        <summary class="flex cursor-pointer items-center justify-between text-left list-none">
-          <h3 class="font-semibold">How much debt could I write off with an IVA or a Trust Deed?</h3>
-          <span class="transition-transform group-open:rotate-45"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-white/70">It depends on your individual circumstances. Some people can write off a significant portion of their unsecured debt—sometimes up to 80%—but this varies based on what you can afford to repay over the term of your plan and is subject to creditor approval. A qualified advisor can help you understand what might be possible for you.</p>
-      </details>
-
-    </div>
-
-    <div class="mt-8 text-center fade-in">
-      <a href="#check" class="inline-flex items-center gap-2 rounded-2xl btn-primary font-semibold px-6 py-3">Still unsure? Chat with us <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></a>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- CTA / CHECK -->
   <section id="check" class="bg-gradient-to-b from-white to-ink-50 text-ink-900">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-    <div class="bg-[#1A4F65] text-white rounded-3xl p-8 md:p-10 border border-ink-200 shadow-xl grid md:grid-cols-2 gap-8 items-center card-hover">
-      
-      <!-- Left Content -->
-      <div class="stagger-animation">
-        <h3 class="text-2xl font-bold fade-in">Get Your Free Consultation</h3>
-        <p class="mt-2 text-ink-200 fade-in">Fill This Form Become a Debt Free</p>
-      </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="bg-ink-800 text-white rounded-3xl p-8 md:p-10 border border-white/10 shadow-soft grid md:grid-cols-2 gap-8 items-center">
+        <!-- Left -->
+        <div class="stagger-animation">
+          <h3 class="text-2xl font-bold">Get Your Free Consultation</h3>
+          <p class="mt-2 text-white/80">Fill in the form to get started.</p>
+          <ul class="mt-4 grid gap-2 text-sm text-white/90">
+            <li class="flex items-center gap-2">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-emerald-100 text-emerald-700">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+              </span> Confidential & judgement-free
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-emerald-100 text-emerald-700">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+              </span> Speak to a person, not a bot
+            </li>
+          </ul>
+        </div>
 
-      <!-- Right Form -->
-      <div class="fade-in">
-        <form id="consultForm" class="grid sm:grid-cols-2 gap-4">
-          
-          <!-- Full Name -->
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-medium mb-1">Full Name</label>
-            <input type="text" placeholder="Enter your full name" class="w-full rounded-xl border border-ink-200 px-4 py-3 focus:ring-2 focus:ring-ink-900 outline-none transition-all text-ink-900" required>
-          </div>
+        <!-- Right Form (kept simple; colors unified) -->
+        <div class="fade-in">
+          <form id="consultForm" class="grid sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1" for="fullName">Full Name</label>
+              <input id="fullName" type="text" placeholder="Enter your full name" class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 focus:ring-2 focus:ring-accent-400 outline-none transition" required>
+            </div>
 
-          <!-- Mobile Number -->
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-medium mb-1">Mobile Number</label>
-            <input type="tel" placeholder="Enter your mobile number" class="w-full rounded-xl border border-ink-200 px-4 py-3 focus:ring-2 focus:ring-ink-900 outline-none transition-all text-ink-900" required>
-          </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1" for="mobile">Mobile Number</label>
+              <input id="mobile" type="tel" placeholder="Enter your mobile number" class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 focus:ring-2 focus:ring-accent-400 outline-none transition" required>
+            </div>
 
-          <!-- Email Address -->
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-medium mb-1">Email Address</label>
-            <input type="email" placeholder="Enter your email address" class="w-full rounded-xl border border-ink-200 px-4 py-3 focus:ring-2 focus:ring-ink-900 outline-none transition-all text-ink-900" required>
-          </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1" for="email">Email Address</label>
+              <input id="email" type="email" placeholder="Enter your email address" class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 focus:ring-2 focus:ring-accent-400 outline-none transition" required>
+            </div>
 
-          <!-- Debt Amount -->
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-medium mb-1">Debt Amount</label>
-            <select class="w-full rounded-xl border border-ink-200 px-4 py-3 focus:ring-2 focus:ring-ink-900 outline-none transition-all text-black" required>
-              <option value="">Select your debt amount</option>
-              <option value="under6000">£6,000</option>
-              <option value="over6000">£6,000 or more</option>
-            </select>
-          </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-1" for="debtRange">Debt Amount</label>
+              <select id="debtRange" class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 focus:ring-2 focus:ring-accent-400 outline-none transition" required>
+                <option value="">Select your debt amount</option>
+                <option value="under6000">£6,000</option>
+                <option value="over6000">£6,000 or more</option>
+              </select>
+            </div>
 
-          <!-- Submit Button -->
-          <button class="sm:col-span-2 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-semibold shadow-lg transition">
-            Get Your Free Consultation
-          </button>
+            <button class="sm:col-span-2 rounded-2xl px-6 py-3 btn-primary font-semibold shadow-soft">Get Your Free Consultation</button>
 
-          <!-- Terms -->
-          <p class="sm:col-span-2 text-xs text-white/80 mt-2">
-            By submitting this form, you agree to our Privacy Policy and Terms of Service
-          </p>
-
-          <!-- Success Message -->
-          <p id="consultMsg" class="sm:col-span-2 text-sm text-emerald-700 hidden p-2 bg-emerald-50 rounded-lg mt-2">
-            Thanks — we'll be in touch shortly.
-          </p>
-        </form>
+            <p class="sm:col-span-2 text-xs text-white/70 mt-2">By submitting this form, you agree to our Privacy Policy and Terms of Service.</p>
+            <p id="consultMsg" class="sm:col-span-2 text-sm text-emerald-300 hidden p-2 bg-white/5 rounded-lg mt-2">Thanks — we'll be in touch shortly.</p>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- FOOTER -->
   <footer class="bg-ink-900 border-t border-white/10">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-white/70 text-center">
-    © 2025 All rights reserved. <br />
-    We are not a debt management firm and do not offer IVAs, DMPs, or DROs directly. 
-    We connect you to FCA-authorized experts for tailored debt solutions.
-  </div>
-</footer>
-
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-white/70 text-center">
+      © <span id="year"></span> All rights reserved. <br />
+      We are not a debt management firm and do not offer IVAs, DMPs, or DROs directly. We connect you to FCA-authorised experts for tailored debt solutions.
+    </div>
+  </footer>
 
   <script>
-    // Mobile nav toggle
-
+    // Mobile nav toggle with ARIA sync
     const menuBtn = document.getElementById('menuBtn');
     const mobileNav = document.getElementById('mobileNav');
     menuBtn?.addEventListener('click', () => {
-      mobileNav.classList.toggle('hidden');
+      const opened = mobileNav.classList.toggle('hidden') ? 'false' : 'true';
+      menuBtn.setAttribute('aria-expanded', opened);
     });
 
-    // Simple eligibility demo calculator
+    // Eligibility calculator
     const form = document.getElementById('eligibilityForm');
     const result = document.getElementById('result');
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      const [debt, income, spend] = [...form.querySelectorAll('input[type="number"]')].map(i => Number(i.value||0));
+      const debt = Number(document.getElementById('debt').value || 0);
+      const income = Number(document.getElementById('income').value || 0);
+      const spend = Number(document.getElementById('spend').value || 0);
       const leftover = Math.max(0, income - spend);
       let message = '';
       if (leftover <= 80) message = 'Cash is tight. A Debt Relief Order or breathing space might be worth exploring.';
@@ -635,46 +540,26 @@
       result.classList.add('text-emerald-300');
     });
 
-    // Mini form message
-    const mini = document.getElementById('miniForm');
-    const miniMsg = document.getElementById('miniMsg');
-    mini?.addEventListener('submit', (e) => {
+    // Consult form demo success
+    const consultForm = document.getElementById('consultForm');
+    const consultMsg = document.getElementById('consultMsg');
+    consultForm?.addEventListener('submit', (e) => {
       e.preventDefault();
-      miniMsg.classList.remove('hidden');
-      setTimeout(() => {
-        miniMsg.classList.add('hidden');
-      }, 5000);
+      consultMsg.classList.remove('hidden');
+      setTimeout(() => consultMsg.classList.add('hidden'), 5000);
+      consultForm.reset();
     });
 
-    // Current year in footer
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // Animate repayment bar on page load
+
+    // Section fade-ins
     window.addEventListener('load', () => {
-      const bar = document.getElementById('repaymentBar');
-      if (bar) {
-        setTimeout(() => {
-          bar.style.width = '40%';
-        }, 500);
-      }
-      
-      // Add scroll animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-      
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-          }
-        });
-      }, observerOptions);
-      
-      document.querySelectorAll('.stagger-animation > *').forEach(el => {
-        observer.observe(el);
-      });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('fade-in'); });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('.stagger-animation > *').forEach(el => observer.observe(el));
     });
   </script>
 </body>
