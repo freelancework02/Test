@@ -50,9 +50,9 @@
     .blob:nth-child(2){ animation-delay:7s; }
     .blob:nth-child(3){ animation-delay:14s; }
     @keyframes float{
-      0%,100%{ transform:translate(0,0) scale(1);}
-      33%{ transform:translate(30px,-20px) scale(1.05);}
-      66%{ transform:translate(-20px,20px) scale(0.95);}
+      0%,100%{ transform:translate(0,0) scale(1);} 
+      33%{ transform:translate(30px,-20px) scale(1.05);} 
+      66%{ transform:translate(-20px,20px) scale(0.95);} 
     }
 
     .glass{ background:rgba(255,255,255,.08); backdrop-filter:blur(10px) saturate(120%); transition:all .3s ease; }
@@ -207,24 +207,24 @@
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[38rem] h-[38rem] rounded-full bg-ink-700 blob"></div>
   </div>
 
-  <!-- NAVBAR (unchanged) -->
+  <!-- NAVBAR (all links jump to Step 4) -->
   <header class="sticky top-0 z-50 backdrop-blur bg-ink-900/90 border-b border-white/10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <a href="#home" class="flex items-center gap-3">
+        <a href="#quiz" class="flex items-center gap-3 nav-link">
           <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-tealish-400/15">
             <svg viewBox="0 0 24 24" class="h-5 w-5 text-tealish-300" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18m-9-9h18"/></svg>
           </span>
           <span class="font-semibold tracking-tight">Debtnation Help</span>
         </a>
         <nav class="hidden md:flex items-center gap-8 text-sm text-white/80">
-          <a href="#fast" class="hover:text-white transition-colors">Fast Track</a>
-          <a href="#steps" class="hover:text-white transition-colors">How it works</a>
-          <a href="#solutions" class="hover:text-white transition-colors">Solutions</a>
-          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+          <a href="#quiz" class="hover:text-white transition-colors nav-link">Fast Track</a>
+          <a href="#quiz" class="hover:text-white transition-colors nav-link">How it works</a>
+          <a href="#quiz" class="hover:text-white transition-colors nav-link">Solutions</a>
+          <a href="#quiz" class="hover:text-white transition-colors nav-link">FAQ</a>
         </nav>
         <div class="flex items-center gap-3">
-          <a href="#quiz" class="hidden sm:inline-flex rounded-xl px-4 py-2 btn-primary font-semibold">Check if you qualify</a>
+          <a href="#quiz" class="hidden sm:inline-flex rounded-xl px-4 py-2 btn-primary font-semibold nav-link">Check if you qualify</a>
           <button id="menuBtn" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl glass" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
             <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
@@ -232,10 +232,10 @@
       </div>
       <div id="mobileNav" class="hidden md:hidden py-3 border-t border-white/10">
         <div class="grid gap-3 text-white/80 px-4">
-          <a href="#fast" class="px-2 py-2 hover:text-white transition-colors">Fast Track</a>
-          <a href="#steps" class="px-2 py-2 hover:text-white transition-colors">How it works</a>
-          <a href="#solutions" class="px-2 py-2 hover:text-white transition-colors">Solutions</a>
-          <a href="#faq" class="px-2 py-2 hover:text-white transition-colors">FAQ</a>
+          <a href="#quiz" class="px-2 py-2 hover:text-white transition-colors nav-link">Fast Track</a>
+          <a href="#quiz" class="px-2 py-2 hover:text-white transition-colors nav-link">How it works</a>
+          <a href="#quiz" class="px-2 py-2 hover:text-white transition-colors nav-link">Solutions</a>
+          <a href="#quiz" class="px-2 py-2 hover:text-white transition-colors nav-link">FAQ</a>
         </div>
       </div>
     </div>
@@ -396,6 +396,11 @@
       const els = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
       const quiz = el('#ukde-quiz');
+      if(!quiz){
+        console.error('Quiz root #ukde-quiz not found. Aborting quiz init.');
+        return;
+      }
+
       const panes = els('.step-pane', quiz);
       const progress = el('#progress-bar', quiz);
       const stepLabel = el('#step-label', quiz);
@@ -408,6 +413,8 @@
 
       let current = 0; // 0..3
       const state = { step1:null, step2:null, step3:null };
+
+      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
       function announce(msg){
         live.textContent = '';
@@ -422,13 +429,13 @@
       }
 
       function showStep(index){
-        panes.forEach((p,i)=> p.hidden = i!==index);
-        current = index;
+        current = clamp(index, 0, panes.length - 1);
+        panes.forEach((p,i)=> p.hidden = i!==current);
         btnPrev.disabled = current===0;
         btnNext.hidden = current===3;
         btnSubmit.hidden = current!==3;
         updateHeader();
-        const first = panes[current].querySelector('.chip, input, button');
+        const first = panes[current]?.querySelector('.chip, input, button');
         if(first) first.focus({preventScroll:true});
       }
 
@@ -480,7 +487,7 @@
       };
 
       function setFieldError(input, hasError){
-        const wrapper = input.closest('.field');
+        const wrapper = input?.closest('.field');
         if(!wrapper) return;
         wrapper.classList.toggle('error', !!hasError);
       }
@@ -501,14 +508,14 @@
       }
 
       Object.values(fields).forEach(inp=>{
-        inp.addEventListener('input', ()=> setFieldError(inp, false));
-        inp.addEventListener('blur', ()=>{
+        inp?.addEventListener('input', ()=> setFieldError(inp, false));
+        inp?.addEventListener('blur', ()=>{
           if(inp===fields.email)  setFieldError(inp, !validateEmail(inp.value));
           if(inp===fields.mobile) setFieldError(inp, !validateMobile(inp.value));
         });
       });
 
-      btnSubmit.addEventListener('click', (e)=>{
+      el('#submit', quiz).addEventListener('click', (e)=>{
         e.preventDefault();
         if(!validateForm()) return;
 
@@ -527,19 +534,42 @@
         //   body: new URLSearchParams(payload).toString()
         // });
 
-        panes.forEach(p => p.hidden = true);
-        success.style.display = 'block';
+        // Success UI
+        Array.from(quiz.querySelectorAll('.step-pane')).forEach(p => p.hidden = true);
+        el('#success', quiz).style.display = 'block';
         btnPrev.disabled = true;
         btnNext.hidden = true;
         btnSubmit.hidden = true;
-        stepLabel.textContent = 'Finished';
-        progress.style.width = '100%';
-        announce('Form submitted successfully');
+        el('#step-label', quiz).textContent = 'Finished';
+        el('#progress-bar', quiz).style.width = '100%';
+        const live = el('#live', quiz); live && (live.textContent = 'Form submitted successfully');
+        console.info('Lead payload (demo):', payload);
       });
 
       // Init
       bindChips();
       showStep(0);
+
+      // NAV LINKS override → jump straight to Step 4
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          showStep(1); // force Step 4 (index 3)
+          document.querySelector('#quiz').scrollIntoView({ behavior: 'smooth' });
+          if(mobileNav && !mobileNav.classList.contains('hidden')) mobileNav.classList.add('hidden');
+        });
+      });
+
+      // --- Optional diagnostics (enable with ?debug=1) ---
+      function runDiagnostics(){
+        console.groupCollapsed('[Diagnostics] Debt Quiz');
+        console.assert(!!quiz, '#ukde-quiz exists');
+        console.assert(panes.length === 4, 'There are 4 step panes');
+        console.assert(!!progress && !!stepLabel, 'Progress & step label exist');
+        console.assert(document.querySelectorAll('.nav-link').length > 0, 'Navbar links found');
+        console.groupEnd();
+      }
+      if(new URLSearchParams(location.search).has('debug')) runDiagnostics();
     })();
   </script>
 </body>
